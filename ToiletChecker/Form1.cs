@@ -13,6 +13,8 @@ namespace ToiletChecker
 {
     public partial class Form1 : Form
     {
+        DateTime PrevdtTime;
+
         public Form1()
         {
             InitializeComponent();
@@ -21,24 +23,76 @@ namespace ToiletChecker
         private void button_small_Click(object sender, EventArgs e)
         {
             DateTime dtTime = DateTime.Now;
+            if (IsSameRecordTime( dtTime ) )
+            {
+                return;
+            }
             label1.Text = dtTime.ToString() + "に小をしました。";
             WriteTextToiletTime( dtTime, "小" );
-
-
+            SetRecordTime( dtTime );
         }
 
         private void button_big_Click(object sender, EventArgs e)
         {
             DateTime dtTime = DateTime.Now;
+            if (IsSameRecordTime(dtTime) )
+            {
+                return;
+            }
             label1.Text = dtTime.ToString() + "に大をしました。";
             WriteTextToiletTime( dtTime, "大" );
+            SetRecordTime(dtTime);
         }
 
         private void button_big_small_Click(object sender, EventArgs e)
         {
             DateTime dtTime = DateTime.Now;
+            if (IsSameRecordTime(dtTime))
+            {
+                return;
+            }
             label1.Text = dtTime.ToString() + "に大小をしました。";
             WriteTextToiletTime( dtTime , "大小" );
+            SetRecordTime(dtTime);
+        }
+
+        private bool IsSameRecordTime(DateTime dtTime)
+        {
+            bool bRetSameRecordTime;
+
+            //if( (dtTime.Year == PrevdtTime.Year) &&
+            //    (dtTime.Month == PrevdtTime.Month) &&
+            //    (dtTime.Day == PrevdtTime.Day) &&
+            //    (dtTime.Hour == PrevdtTime.Hour) &&
+            //    (dtTime.Minute == PrevdtTime.Minute) )
+            //{
+            //    label1.Text = "記録してから１分以上経過していません。";
+            //    bRetSameRecordTime = true;
+            //}
+            //else
+            //{
+            //    bRetSameRecordTime = false;
+            //}
+            DateTime dtTimeLocal;
+            int iRet;
+            dtTimeLocal = PrevdtTime;
+            dtTimeLocal = dtTimeLocal.AddMinutes(1.0);
+            iRet = dtTimeLocal.CompareTo(dtTime);
+            if (dtTimeLocal.CompareTo(dtTime) > 0)
+            {
+                label1.Text = "記録してから１分以上経過していません。";
+                bRetSameRecordTime = true;
+            }
+            else
+            {
+                bRetSameRecordTime = false;
+            }
+            return ( bRetSameRecordTime );
+        }
+
+        private void SetRecordTime( DateTime dtTime)
+        {
+            PrevdtTime = dtTime;
         }
 
         private void WriteTextToiletTime( DateTime dtTime , string str )
