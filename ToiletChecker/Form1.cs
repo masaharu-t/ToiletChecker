@@ -46,7 +46,7 @@ namespace ToiletChecker
             Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
             StreamWriter writer =
               new StreamWriter(@"ToiletChecker.txt", true, sjisEnc);
-            writer.WriteLine( dtTime.ToShortDateString() + " " + dtTime.ToShortTimeString() + "," + str );
+            writer.WriteLine( dtTime.ToShortDateString() + " " + dtTime.ToLongTimeString() + "," + str );
             writer.Close();
         }
 
@@ -60,6 +60,20 @@ namespace ToiletChecker
               new StreamReader(@"ToiletChecker.txt", sjisEnc);
             str = reader.ReadLine();
             reader.Close();
+
+            int iLen;
+            int iCount;
+            string str1char;
+
+            iLen = str.Length;
+            for( iCount = iLen - 1; iCount >= 0; iCount-- )
+            {
+                str1char = str.Substring(iCount, 1);
+                if(str1char == ",")
+                {
+                    break;
+                }
+            }
 
             str2 = str.Substring(0, 19);
             dtTime = DateTime.Parse( str2 );
