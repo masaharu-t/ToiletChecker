@@ -49,5 +49,22 @@ namespace ToiletChecker
             writer.WriteLine( dtTime.ToShortDateString() + " " + dtTime.ToShortTimeString() + "," + str );
             writer.Close();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            DateTime dtTime;
+            string str;
+            string str2;
+            Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
+            StreamReader reader =
+              new StreamReader(@"ToiletChecker.txt", sjisEnc);
+            str = reader.ReadLine();
+            reader.Close();
+
+            str2 = str.Substring(0, 19);
+            dtTime = DateTime.Parse( str2 );
+
+            label1.Text = dtTime.ToString();
+        }
     }
 }
