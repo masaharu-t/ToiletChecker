@@ -98,7 +98,7 @@ namespace ToiletChecker
             DateTime dtTimeLocal;
             int iRet;
             dtTimeLocal = PrevdtTime;
-//            dtTimeLocal = dtTimeLocal.AddMinutes(1.0);
+//          dtTimeLocal = dtTimeLocal.AddMinutes(1.0);
             iRet = dtTimeLocal.CompareTo(dtTime);
             if (dtTimeLocal.CompareTo(dtTime) > 0)
             {
@@ -122,7 +122,7 @@ namespace ToiletChecker
             Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
             StreamWriter writer =
               new StreamWriter(@"ToiletChecker.txt", true, sjisEnc);
-            writer.WriteLine( dtTime.ToShortDateString() + " " + dtTime.ToLongTimeString() + "," + str );
+            writer.WriteLine( dtTime.ToString(@"yyyy/MM/dd") + " " + dtTime.ToString(@"hh:mm:ss") + "," + str );
             writer.Close();
         }
 
@@ -225,10 +225,15 @@ namespace ToiletChecker
             DateTime dtTime;
             string ssDate;
 
-            ssDate = listView1.Items[0].SubItems[0].Text;
-
-            dtTime = DateTime.Parse(ssDate);
-
+            if (listView1.Items.Count > 0)
+            {
+                ssDate = listView1.Items[0].SubItems[0].Text;
+                dtTime = DateTime.Parse(ssDate);
+            }
+            else
+            {
+                dtTime = DateTime.Now;
+            }
             return (dtTime);
         }
 
@@ -267,8 +272,16 @@ namespace ToiletChecker
 
         private void SetListViewItem(DateTime dtTime, string ToiletKind, string ssDiffTimeSpan, string ssBigDiffTimeSpan)
         {
-            string[] item1 = { dtTime.ToString(), GetStringWeekDay(dtTime), ToiletKind, ssDiffTimeSpan, ssBigDiffTimeSpan };
-            listView1.Items.Add(new ListViewItem(item1));
+            if (listView1.Items.Count > 0)
+            {
+                string[] item1 = { dtTime.ToString(@"yyyy/MM/dd hh:mm:ss"), GetStringWeekDay(dtTime), ToiletKind, ssDiffTimeSpan, ssBigDiffTimeSpan };
+                listView1.Items.Add(new ListViewItem(item1));
+            }
+            else
+            {
+                string[] item1 = { dtTime.ToString(@"yyyy/MM/dd hh:mm:ss"), GetStringWeekDay(dtTime), ToiletKind, "-", "-" };
+                listView1.Items.Add(new ListViewItem(item1));
+            }
         }
 
         private void Form1_Load(object sender, EventArgs e)
