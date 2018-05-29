@@ -14,6 +14,8 @@ namespace ToiletChecker
     public partial class Form1 : Form
     {
         DateTime PrevdtTime;
+        ColumnHeader columnTime;
+        ColumnHeader columnText;
 
         public Form1()
         {
@@ -30,6 +32,9 @@ namespace ToiletChecker
             label1.Text = dtTime.ToString() + "に小をしました。";
             WriteTextToiletTime( dtTime, "小" );
             SetRecordTime( dtTime );
+            //dtTime.DayOfWeek
+            string[] item1 = { dtTime.ToString(), "月","小" };
+            listView1.Items.Add(new ListViewItem(item1));
         }
 
         private void button_big_Click(object sender, EventArgs e)
@@ -42,6 +47,8 @@ namespace ToiletChecker
             label1.Text = dtTime.ToString() + "に大をしました。";
             WriteTextToiletTime( dtTime, "大" );
             SetRecordTime(dtTime);
+            string[] item1 = { dtTime.ToString(), "月","大" };
+            listView1.Items.Add(new ListViewItem(item1));
         }
 
         private void button_big_small_Click(object sender, EventArgs e)
@@ -54,6 +61,8 @@ namespace ToiletChecker
             label1.Text = dtTime.ToString() + "に大小をしました。";
             WriteTextToiletTime( dtTime , "大小" );
             SetRecordTime(dtTime);
+            string[] item1 = { dtTime.ToString(), "月", "大小" };
+            listView1.Items.Add(new ListViewItem(item1));
         }
 
         private bool IsSameRecordTime(DateTime dtTime)
@@ -133,6 +142,28 @@ namespace ToiletChecker
             dtTime = DateTime.Parse( str2 );
 
             label1.Text = dtTime.ToString();
+        }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            listView1.FullRowSelect = true;
+            listView1.GridLines = true;
+            listView1.View = View.Details;
+            
+
+            listView1.Columns.Add("トイレ時刻",120);
+            listView1.Columns.Add("曜日", 30);
+            listView1.Columns.Add("トイレ種別",70);
+            //columnTime = new ColumnHeader();
+            //columnText = new ColumnHeader();
+            //columnTime.Text = "トイレ時刻";
+            //columnTime.Width = 100;
+            //columnText.Text = "トイレ種別";
+            //columnText.Width = 50;
+
+            //ColumnHeader[] colHeaderRegValue =
+            //{ this.columnTime, this.columnText };
+            //listView1.Columns.AddRange(colHeaderRegValue);
         }
     }
 }

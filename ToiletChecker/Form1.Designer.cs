@@ -33,6 +33,7 @@
             this.button_big_small = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.listView1 = new System.Windows.Forms.ListView();
             this.SuspendLayout();
             // 
             // button_big
@@ -85,11 +86,21 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // listView1
+            // 
+            this.listView1.Location = new System.Drawing.Point(26, 301);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(325, 232);
+            this.listView1.TabIndex = 5;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.listView1.View = System.Windows.Forms.View.List;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(378, 287);
+            this.ClientSize = new System.Drawing.Size(378, 569);
+            this.Controls.Add(this.listView1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button_big);
@@ -97,6 +108,7 @@
             this.Controls.Add(this.button_big_small);
             this.Name = "Form1";
             this.Text = "Toilet Checker";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -109,6 +121,7 @@
         private System.Windows.Forms.Button button_big_small;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.ListView listView1;
     }
 }
 
