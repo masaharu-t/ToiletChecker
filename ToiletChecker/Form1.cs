@@ -24,6 +24,7 @@ namespace ToiletChecker
         {
             DateTime dtTime = DateTime.Now;
             TimeSpan DifftmSpan = dtTime.Subtract(PrevdtTime);
+            DayOfWeek stDayOfWeek = dtTime.DayOfWeek;
 
             if (IsSameRecordTime( dtTime ) )
             {
@@ -33,7 +34,7 @@ namespace ToiletChecker
             WriteTextToiletTime( dtTime, "小" );
             SetRecordTime( dtTime );
             //dtTime.DayOfWeek
-            string[] item1 = { dtTime.ToString(), "月","小", DifftmSpan.ToString() };
+            string[] item1 = { dtTime.ToString(), GetStringWeekDay(dtTime), "小", DifftmSpan.ToString() };
             listView1.Items.Add(new ListViewItem(item1));
         }
 
@@ -48,7 +49,7 @@ namespace ToiletChecker
             label1.Text = dtTime.ToString() + "に大をしました。";
             WriteTextToiletTime( dtTime, "大" );
             SetRecordTime(dtTime);
-            string[] item1 = { dtTime.ToString(), "月","大", DifftmSpan.ToString() };
+            string[] item1 = { dtTime.ToString(), GetStringWeekDay(dtTime), "大", DifftmSpan.ToString() };
             listView1.Items.Add(new ListViewItem(item1));
         }
 
@@ -63,7 +64,7 @@ namespace ToiletChecker
             label1.Text = dtTime.ToString() + "に大小をしました。";
             WriteTextToiletTime( dtTime , "大小" );
             SetRecordTime(dtTime);
-            string[] item1 = { dtTime.ToString(), "月", "大小", DifftmSpan.ToString() };
+            string[] item1 = { dtTime.ToString(), GetStringWeekDay(dtTime), "大小", DifftmSpan.ToString() };
             listView1.Items.Add(new ListViewItem(item1));
         }
 
@@ -120,30 +121,62 @@ namespace ToiletChecker
             DateTime dtTime;
             string str;
             string str2;
+            string str3 = null;
             Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
             StreamReader reader =
               new StreamReader(@"ToiletChecker.txt", sjisEnc);
             str = reader.ReadLine();
-            reader.Close();
-
-            int iLen;
-            int iCount;
-            string str1char;
-
-            iLen = str.Length;
-            for( iCount = iLen - 1; iCount >= 0; iCount-- )
+            if (str == null)
             {
-                str1char = str.Substring(iCount, 1);
-                if(str1char == ",")
+                reader.Close();
+                return;
+            }
+            while (str.Length != 0)
+            {
+                int iLen;
+                int iCount;
+                string str1char;
+
+                iLen = str.Length;
+                for (iCount = 0; iCount < iLen; iCount++)
+                {
+                    str1char = str.Substring(iCount, 1);
+                    if (str1char == ",")
+                    {
+                        break;
+                    }
+                }
+
+                str2 = str.Substring(0, 19);
+                dtTime = DateTime.Parse(str2);
+
+                str3 = null;
+                for (iCount += 1; iCount < iLen; iCount++)
+                {
+                    str1char = str.Substring(iCount, 1);
+                    str3 += str1char;
+                }
+
+                //              label1.Text = dtTime.ToString() + "に" + str3.ToString() + "をしました。";
+                string[] item1 = { dtTime.ToString(), GetStringWeekDay(dtTime), str3.ToString(), "" };
+                listView1.Items.Add(new ListViewItem(item1));
+
+                str = reader.ReadLine();
+                if( str == null )
                 {
                     break;
                 }
             }
+            reader.Close();
+        }
 
-            str2 = str.Substring(0, 19);
-            dtTime = DateTime.Parse( str2 );
+        private string GetStringWeekDay(DateTime dtTime)
+        {
+            string ssDayOfWeek;
 
-            label1.Text = dtTime.ToString();
+            ssDayOfWeek = ("日月火水木金土").Substring(int.Parse(dtTime.DayOfWeek.ToString("d")), 1);
+
+            return (ssDayOfWeek);
         }
 
         private void Form1_Load(object sender, EventArgs e)
