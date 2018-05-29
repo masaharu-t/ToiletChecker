@@ -23,7 +23,7 @@ namespace ToiletChecker
         private void button_small_Click(object sender, EventArgs e)
         {
             DateTime dtTime = DateTime.Now;
-            TimeSpan DifftmSpan = dtTime.Subtract(PrevdtTime);
+            TimeSpan DiffTmSpan;
             DayOfWeek stDayOfWeek = dtTime.DayOfWeek;
 
             if (IsSameRecordTime( dtTime ) )
@@ -32,40 +32,50 @@ namespace ToiletChecker
             }
             label1.Text = dtTime.ToString() + "に小をしました。";
             WriteTextToiletTime( dtTime, "小" );
-            SetRecordTime( dtTime );
-            //dtTime.DayOfWeek
-            string[] item1 = { dtTime.ToString(), GetStringWeekDay(dtTime), "小", DifftmSpan.ToString() };
-            listView1.Items.Add(new ListViewItem(item1));
+            //SetRecordTime( dtTime );
+            PrevdtTime = GetPrevDateTime();
+            DiffTmSpan = dtTime.Subtract(PrevdtTime);
+            SetListViewItem( dtTime, "小", DiffTmSpan.ToString(@"hh\:mm\:ss"), "-" );
         }
 
         private void button_big_Click(object sender, EventArgs e)
         {
             DateTime dtTime = DateTime.Now;
-            TimeSpan DifftmSpan = dtTime.Subtract(PrevdtTime);
+            TimeSpan DiffTimeSpan;
+            TimeSpan DiffBigTimeSpan;
+            DateTime PrevBigDateTime;
             if (IsSameRecordTime(dtTime) )
             {
                 return;
             }
             label1.Text = dtTime.ToString() + "に大をしました。";
             WriteTextToiletTime( dtTime, "大" );
-            SetRecordTime(dtTime);
-            string[] item1 = { dtTime.ToString(), GetStringWeekDay(dtTime), "大", DifftmSpan.ToString() };
-            listView1.Items.Add(new ListViewItem(item1));
+            //SetRecordTime(dtTime);
+            PrevdtTime  = GetPrevDateTime();
+            PrevBigDateTime = GetPrevBigDateTime();
+            DiffTimeSpan = dtTime.Subtract(PrevdtTime);
+            DiffBigTimeSpan = dtTime.Subtract(PrevBigDateTime);
+            SetListViewItem(dtTime, "大", DiffTimeSpan.ToString(@"hh\:mm\:ss"), DiffBigTimeSpan.ToString(@"hh\:mm\:ss") );
         }
 
         private void button_big_small_Click(object sender, EventArgs e)
         {
             DateTime dtTime = DateTime.Now;
-            TimeSpan DifftmSpan = dtTime.Subtract(PrevdtTime);
+            TimeSpan DiffTmSpan;
+            TimeSpan DiffBigTimeSpan;
+            DateTime PrevBigDateTime;
             if (IsSameRecordTime(dtTime))
             {
                 return;
             }
             label1.Text = dtTime.ToString() + "に大小をしました。";
             WriteTextToiletTime( dtTime , "大小" );
-            SetRecordTime(dtTime);
-            string[] item1 = { dtTime.ToString(), GetStringWeekDay(dtTime), "大小", DifftmSpan.ToString() };
-            listView1.Items.Add(new ListViewItem(item1));
+            //SetRecordTime(dtTime);
+            PrevdtTime = GetPrevDateTime();
+            PrevBigDateTime = GetPrevBigDateTime();
+            DiffTmSpan = dtTime.Subtract(PrevdtTime);
+            DiffBigTimeSpan = dtTime.Subtract(PrevBigDateTime);
+            SetListViewItem(dtTime, "大小", DiffTmSpan.ToString(@"hh\:mm\:ss"), DiffBigTimeSpan.ToString(@"hh\:mm\:ss"));
         }
 
         private bool IsSameRecordTime(DateTime dtTime)
@@ -118,10 +128,23 @@ namespace ToiletChecker
 
         private void button1_Click(object sender, EventArgs e)
         {
+            ReadToiletCheckData();
+        }
+
+        private void ReadToiletCheckData()
+        {
             DateTime dtTime;
+            DateTime PrevDtTime;
+            DateTime BigPrevDtTime;
+            TimeSpan DiffTmSpan;
+            TimeSpan DiffBigTmSpan;
+            int iReadCnt;
+            int iBigCnt;
             string str;
             string str2;
             string str3 = null;
+            string ssTimeSpan;
+            string ssBigTimeSpan;
             Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
             StreamReader reader =
               new StreamReader(@"ToiletChecker.txt", sjisEnc);
@@ -131,12 +154,17 @@ namespace ToiletChecker
                 reader.Close();
                 return;
             }
+            iReadCnt = 0;
+            iBigCnt = 0;
+            PrevDtTime = DateTime.Now;
+            BigPrevDtTime = DateTime.Now;
             while (str.Length != 0)
             {
                 int iLen;
                 int iCount;
                 string str1char;
 
+                iReadCnt++;
                 iLen = str.Length;
                 for (iCount = 0; iCount < iLen; iCount++)
                 {
@@ -157,17 +185,75 @@ namespace ToiletChecker
                     str3 += str1char;
                 }
 
-                //              label1.Text = dtTime.ToString() + "に" + str3.ToString() + "をしました。";
-                string[] item1 = { dtTime.ToString(), GetStringWeekDay(dtTime), str3.ToString(), "" };
-                listView1.Items.Add(new ListViewItem(item1));
+                DiffTmSpan = dtTime.Subtract(PrevDtTime);
+                ssTimeSpan = DiffTmSpan.ToString(@"hh\:mm\m\:ss");
+                PrevDtTime = dtTime;
+
+                if ( str3.Contains("大") ) {
+                    iBigCnt++;
+                    DiffBigTmSpan = dtTime.Subtract(BigPrevDtTime);
+                    BigPrevDtTime = dtTime;
+                    
+                    if ( iBigCnt != 1)
+                    {
+                        ssBigTimeSpan = DiffBigTmSpan.ToString(@"hh\:mm\m\:ss");
+                    }
+                    else
+                    {
+                        ssBigTimeSpan = "-";
+                    }
+                }
+                else
+                {
+                    ssBigTimeSpan = "-";
+                }
+
+                SetListViewItem(dtTime, str3.ToString(), ssTimeSpan, ssBigTimeSpan );
+
 
                 str = reader.ReadLine();
-                if( str == null )
+                if (str == null)
                 {
                     break;
                 }
             }
             reader.Close();
+        }
+
+        private DateTime GetPrevDateTime()
+        {
+            DateTime dtTime;
+            string ssDate;
+
+            ssDate = listView1.Items[0].SubItems[0].Text;
+
+            dtTime = DateTime.Parse(ssDate);
+
+            return (dtTime);
+        }
+
+        private DateTime GetPrevBigDateTime()
+        {
+            DateTime dtTime;
+            string ssDate;
+            string ssKind;
+            int iListCnt;
+            int iCnt;
+
+            dtTime = DateTime.Now;
+            iListCnt = listView1.Items.Count;
+
+            for (iCnt = 0; iCnt < iListCnt; iCnt++)
+            {
+                ssKind = listView1.Items[iCnt].SubItems[2].Text;
+                if (ssKind.Contains("大"))
+                {
+                    ssDate = listView1.Items[iCnt].SubItems[0].Text;
+                    dtTime = DateTime.Parse(ssDate);
+                    break;
+                }
+            }
+            return (dtTime);
         }
 
         private string GetStringWeekDay(DateTime dtTime)
@@ -179,12 +265,19 @@ namespace ToiletChecker
             return (ssDayOfWeek);
         }
 
+        private void SetListViewItem(DateTime dtTime, string ToiletKind, string ssDiffTimeSpan, string ssBigDiffTimeSpan)
+        {
+            string[] item1 = { dtTime.ToString(), GetStringWeekDay(dtTime), ToiletKind, ssDiffTimeSpan, ssBigDiffTimeSpan };
+            listView1.Items.Add(new ListViewItem(item1));
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             ColumnHeader columnTime;
             ColumnHeader columnWeekDay;
             ColumnHeader columnText;
             ColumnHeader columnPrevDiff;
+            ColumnHeader columnBigPrevDiff;
 
             listView1.FullRowSelect = true;
             listView1.GridLines = true;
@@ -199,6 +292,7 @@ namespace ToiletChecker
             columnWeekDay = new ColumnHeader();
             columnText = new ColumnHeader();
             columnPrevDiff = new ColumnHeader();
+            columnBigPrevDiff = new ColumnHeader();
 
             columnTime.Text = "トイレ時刻";
             columnTime.Width = 120;
@@ -208,10 +302,14 @@ namespace ToiletChecker
             columnText.Width = 70;
             columnPrevDiff.Text = "前回からの経過時間";
             columnPrevDiff.Width = 120;
+            columnBigPrevDiff.Text = "前回からの大経過時間";
+            columnBigPrevDiff.Width = 120;
 
             ColumnHeader[] colHeaderRegValue =
-            { columnTime, columnWeekDay, columnText, columnPrevDiff };
+            { columnTime, columnWeekDay, columnText, columnPrevDiff, columnBigPrevDiff };
             listView1.Columns.AddRange(colHeaderRegValue);
+
+            ReadToiletCheckData();
         }
     }
 }
