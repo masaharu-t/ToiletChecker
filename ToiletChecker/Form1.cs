@@ -14,8 +14,6 @@ namespace ToiletChecker
     public partial class Form1 : Form
     {
         DateTime PrevdtTime;
-        ColumnHeader columnTime;
-        ColumnHeader columnText;
 
         public Form1()
         {
@@ -25,6 +23,8 @@ namespace ToiletChecker
         private void button_small_Click(object sender, EventArgs e)
         {
             DateTime dtTime = DateTime.Now;
+            TimeSpan DifftmSpan = dtTime.Subtract(PrevdtTime);
+
             if (IsSameRecordTime( dtTime ) )
             {
                 return;
@@ -33,13 +33,14 @@ namespace ToiletChecker
             WriteTextToiletTime( dtTime, "小" );
             SetRecordTime( dtTime );
             //dtTime.DayOfWeek
-            string[] item1 = { dtTime.ToString(), "月","小" };
+            string[] item1 = { dtTime.ToString(), "月","小", DifftmSpan.ToString() };
             listView1.Items.Add(new ListViewItem(item1));
         }
 
         private void button_big_Click(object sender, EventArgs e)
         {
             DateTime dtTime = DateTime.Now;
+            TimeSpan DifftmSpan = dtTime.Subtract(PrevdtTime);
             if (IsSameRecordTime(dtTime) )
             {
                 return;
@@ -47,13 +48,14 @@ namespace ToiletChecker
             label1.Text = dtTime.ToString() + "に大をしました。";
             WriteTextToiletTime( dtTime, "大" );
             SetRecordTime(dtTime);
-            string[] item1 = { dtTime.ToString(), "月","大" };
+            string[] item1 = { dtTime.ToString(), "月","大", DifftmSpan.ToString() };
             listView1.Items.Add(new ListViewItem(item1));
         }
 
         private void button_big_small_Click(object sender, EventArgs e)
         {
             DateTime dtTime = DateTime.Now;
+            TimeSpan DifftmSpan = dtTime.Subtract(PrevdtTime);
             if (IsSameRecordTime(dtTime))
             {
                 return;
@@ -61,7 +63,7 @@ namespace ToiletChecker
             label1.Text = dtTime.ToString() + "に大小をしました。";
             WriteTextToiletTime( dtTime , "大小" );
             SetRecordTime(dtTime);
-            string[] item1 = { dtTime.ToString(), "月", "大小" };
+            string[] item1 = { dtTime.ToString(), "月", "大小", DifftmSpan.ToString() };
             listView1.Items.Add(new ListViewItem(item1));
         }
 
@@ -85,7 +87,7 @@ namespace ToiletChecker
             DateTime dtTimeLocal;
             int iRet;
             dtTimeLocal = PrevdtTime;
-            dtTimeLocal = dtTimeLocal.AddMinutes(1.0);
+//            dtTimeLocal = dtTimeLocal.AddMinutes(1.0);
             iRet = dtTimeLocal.CompareTo(dtTime);
             if (dtTimeLocal.CompareTo(dtTime) > 0)
             {
@@ -146,24 +148,37 @@ namespace ToiletChecker
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            ColumnHeader columnTime;
+            ColumnHeader columnWeekDay;
+            ColumnHeader columnText;
+            ColumnHeader columnPrevDiff;
+
             listView1.FullRowSelect = true;
             listView1.GridLines = true;
             listView1.View = View.Details;
+            listView1.Sorting = SortOrder.Ascending;
             
 
-            listView1.Columns.Add("トイレ時刻",120);
-            listView1.Columns.Add("曜日", 30);
-            listView1.Columns.Add("トイレ種別",70);
-            //columnTime = new ColumnHeader();
-            //columnText = new ColumnHeader();
-            //columnTime.Text = "トイレ時刻";
-            //columnTime.Width = 100;
-            //columnText.Text = "トイレ種別";
-            //columnText.Width = 50;
+            // listView1.Columns.Add("トイレ時刻",120);
+            // listView1.Columns.Add("曜日", 30);
+            // listView1.Columns.Add("トイレ種別",70);
+            columnTime = new ColumnHeader();
+            columnWeekDay = new ColumnHeader();
+            columnText = new ColumnHeader();
+            columnPrevDiff = new ColumnHeader();
 
-            //ColumnHeader[] colHeaderRegValue =
-            //{ this.columnTime, this.columnText };
-            //listView1.Columns.AddRange(colHeaderRegValue);
+            columnTime.Text = "トイレ時刻";
+            columnTime.Width = 120;
+            columnWeekDay.Text = "曜日";
+            columnWeekDay.Width = 50;
+            columnText.Text = "トイレ種別";
+            columnText.Width = 70;
+            columnPrevDiff.Text = "前回からの経過時間";
+            columnPrevDiff.Width = 120;
+
+            ColumnHeader[] colHeaderRegValue =
+            { columnTime, columnWeekDay, columnText, columnPrevDiff };
+            listView1.Columns.AddRange(colHeaderRegValue);
         }
     }
 }
