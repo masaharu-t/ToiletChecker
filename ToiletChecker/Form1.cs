@@ -637,23 +637,28 @@ namespace ToiletChecker
         {
             if ((e.KeyData & Keys.Delete) == Keys.Delete)
             {
+                int iCnt;
                 int iSelectedIndex;
+                int iSelectedItemCount;
 
-                if (listView1.SelectedItems.Count > 0)
+                iSelectedItemCount = listView1.SelectedItems.Count;
+                if (iSelectedItemCount > 0)
                 {
-                    iSelectedIndex = listView1.SelectedItems[0].Index;
-                    listView1.Items[iSelectedIndex].Remove();
-                    if (iSelectedIndex != 0)
-                    {
-                        if (listView1.Items.Count == iSelectedIndex)
+                    for ( iCnt = 0; iCnt < iSelectedItemCount; iCnt++ ) {
+                        iSelectedIndex = listView1.SelectedItems[0].Index;
+                        listView1.Items[iSelectedIndex].Remove();
+                        if (iSelectedIndex != 0)
                         {
-                            iSelectedIndex--;
+                            if (listView1.Items.Count == iSelectedIndex)
+                            {
+                                iSelectedIndex--;
+                            }
+                            listView1.Items[iSelectedIndex].Focused = true;
+                            listView1.Items[iSelectedIndex].Selected = true;
                         }
-                        listView1.Items[iSelectedIndex].Focused = true;
-                        listView1.Items[iSelectedIndex].Selected = true;
-                        CalcToiletSpan();
-                        SaveNewToiletData();
                     }
+                    CalcToiletSpan();
+                    SaveNewToiletData();
                 }
             }
         }
