@@ -488,6 +488,7 @@ namespace ToiletChecker
                 listView1.Items[iSelectedIndex].SubItems[0].Text = dtEditDateTime.ToString(@"yyyy/MM/dd HH:mm:ss");
                 listView1.Items[iSelectedIndex].SubItems[2].Text = ssToiletKind.ToString();
 
+                listView1.Sort();
                 CalcToiletSpan();
 
                 SaveNewToiletData();
