@@ -192,7 +192,7 @@ namespace ToiletChecker
                 }
 
                 DiffTmSpan = dtTime.Subtract(PrevDtTime);
-                ssTimeSpan = DiffTmSpan.ToString(@"hh\:mm\m\:ss");
+                ssTimeSpan = DiffTmSpan.ToString(@"hh\:mm\:ss");
                 PrevDtTime = dtTime;
 
                 if ( str3.Contains("大") ) {
@@ -202,7 +202,7 @@ namespace ToiletChecker
                     
                     if ( iBigCnt != 1)
                     {
-                        ssBigTimeSpan = DiffBigTmSpan.ToString(@"hh\:mm\m\:ss");
+                        ssBigTimeSpan = DiffBigTmSpan.ToString(@"hh\:mm\:ss");
                     }
                     else
                     {
