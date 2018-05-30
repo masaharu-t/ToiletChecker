@@ -154,7 +154,21 @@ namespace ToiletChecker
 
         private string MakeStringPrevTimeSpan(TimeSpan DiffTmSpan)
         {
-            return( string.Format("{0}日{1}時間{2}分 ", DiffTmSpan.Days, DiffTmSpan.Hours, DiffTmSpan.Minutes) );
+            string ssPrevTimeSpan;
+
+            if ((DiffTmSpan.Days == 0) && (DiffTmSpan.Hours == 0))
+            {
+                ssPrevTimeSpan = string.Format("{0}分 ", DiffTmSpan.Minutes);
+            }
+            else if (DiffTmSpan.Days == 0)
+            {
+                ssPrevTimeSpan = string.Format("{0}時間{1}分 ", DiffTmSpan.Hours, DiffTmSpan.Minutes);
+            }
+            else
+            {
+                ssPrevTimeSpan = string.Format( "{0}日{1}時間{2}分 ", DiffTmSpan.Days, DiffTmSpan.Hours, DiffTmSpan.Minutes );
+            }
+            return ( ssPrevTimeSpan );
         }
 
         private void ReadToiletCheckData()
