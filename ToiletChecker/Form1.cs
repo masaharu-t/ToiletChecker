@@ -95,22 +95,9 @@ namespace ToiletChecker
         private bool IsSameRecordTime(DateTime dtTime)
         {
             bool bRetSameRecordTime;
-
-            //if( (dtTime.Year == PrevdtTime.Year) &&
-            //    (dtTime.Month == PrevdtTime.Month) &&
-            //    (dtTime.Day == PrevdtTime.Day) &&
-            //    (dtTime.Hour == PrevdtTime.Hour) &&
-            //    (dtTime.Minute == PrevdtTime.Minute) )
-            //{
-            //    label1.Text = "記録してから１分以上経過していません。";
-            //    bRetSameRecordTime = true;
-            //}
-            //else
-            //{
-            //    bRetSameRecordTime = false;
-            //}
             DateTime dtTimeLocal;
             int iRet;
+
             dtTimeLocal = PrevdtTime;
             dtTimeLocal = dtTimeLocal.AddMinutes(1.0);
             iRet = dtTimeLocal.CompareTo(dtTime);
