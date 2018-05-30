@@ -632,5 +632,30 @@ namespace ToiletChecker
             CalcToiletSpanBig();
             DrawBigLineBkgnd();
         }
+
+        private void listView1_KeyDown(object sender, KeyEventArgs e)
+        {
+            if ((e.KeyData & Keys.Delete) == Keys.Delete)
+            {
+                int iSelectedIndex;
+
+                if (listView1.SelectedItems.Count > 0)
+                {
+                    iSelectedIndex = listView1.SelectedItems[0].Index;
+                    listView1.Items[iSelectedIndex].Remove();
+                    if (iSelectedIndex != 0)
+                    {
+                        if (listView1.Items.Count == iSelectedIndex)
+                        {
+                            iSelectedIndex--;
+                        }
+                        listView1.Items[iSelectedIndex].Focused = true;
+                        listView1.Items[iSelectedIndex].Selected = true;
+                        CalcToiletSpan();
+                        SaveNewToiletData();
+                    }
+                }
+            }
+        }
     }
 }
