@@ -67,6 +67,29 @@ namespace ToiletChecker
             radioButton2.Checked = true;
         }
 
+        public void SetToiletKind(string ssToiletKind)
+        {
+            if( ssToiletKind == "大" )
+            {
+                radioButton1.Checked = true;
+            }
+            else if (ssToiletKind == "小")
+            {
+                radioButton2.Checked = true;
+            }
+            else
+            {
+                radioButton3.Checked = true;
+            }
+
+        }
+
+        public void SetInitialToiletPlace()
+        {
+            // トイレの場所は自宅を規定値にする
+            radioButton4.Checked = true;
+        }
+
         public void SetModifyButtonText( string ssButtonText )
         {
             button1.Text = ssButtonText;
