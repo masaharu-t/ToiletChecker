@@ -26,6 +26,7 @@ namespace ToiletChecker
             TimeSpan DiffTmSpan;
             DayOfWeek stDayOfWeek = dtTime.DayOfWeek;
 
+            PrevdtTime = GetPrevDateTime();
             if (IsSameRecordTime( dtTime ) )
             {
                 return;
@@ -33,7 +34,6 @@ namespace ToiletChecker
             label1.Text = dtTime.ToString() + "に小をしました。";
             WriteTextToiletTime( dtTime, "小" );
             //SetRecordTime( dtTime );
-            PrevdtTime = GetPrevDateTime();
             DiffTmSpan = dtTime.Subtract(PrevdtTime);
             SetListViewItem( dtTime, "小", DiffTmSpan.ToString(@"hh\:mm\:ss"), "-" );
         }
@@ -44,6 +44,8 @@ namespace ToiletChecker
             TimeSpan DiffTimeSpan;
             TimeSpan DiffBigTimeSpan;
             DateTime PrevBigDateTime;
+
+            PrevdtTime = GetPrevDateTime();
             if (IsSameRecordTime(dtTime) )
             {
                 return;
@@ -51,7 +53,6 @@ namespace ToiletChecker
             label1.Text = dtTime.ToString() + "に大をしました。";
             WriteTextToiletTime( dtTime, "大" );
             //SetRecordTime(dtTime);
-            PrevdtTime  = GetPrevDateTime();
             PrevBigDateTime = GetPrevBigDateTime();
             DiffTimeSpan = dtTime.Subtract(PrevdtTime);
             DiffBigTimeSpan = dtTime.Subtract(PrevBigDateTime);
@@ -64,6 +65,8 @@ namespace ToiletChecker
             TimeSpan DiffTmSpan;
             TimeSpan DiffBigTimeSpan;
             DateTime PrevBigDateTime;
+
+            PrevdtTime = GetPrevDateTime();
             if (IsSameRecordTime(dtTime))
             {
                 return;
@@ -71,7 +74,6 @@ namespace ToiletChecker
             label1.Text = dtTime.ToString() + "に大小をしました。";
             WriteTextToiletTime( dtTime , "大小" );
             //SetRecordTime(dtTime);
-            PrevdtTime = GetPrevDateTime();
             PrevBigDateTime = GetPrevBigDateTime();
             DiffTmSpan = dtTime.Subtract(PrevdtTime);
             DiffBigTimeSpan = dtTime.Subtract(PrevBigDateTime);
@@ -204,7 +206,8 @@ namespace ToiletChecker
                     
                     if ( iBigCnt != 1)
                     {
-                        ssBigTimeSpan = DiffBigTmSpan.ToString(@"hh\:mm\:ss");
+                        ssBigTimeSpan = "";
+                        ssBigTimeSpan = string.Format("{0}日{1}時間{2}分 ", DiffBigTmSpan.Days, DiffBigTmSpan.Hours, DiffBigTmSpan.Minutes);
                     }
                     else
                     {
