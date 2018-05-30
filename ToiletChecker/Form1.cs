@@ -296,6 +296,7 @@ namespace ToiletChecker
             else
             {
                 dtTime = DateTime.Now;
+                dtTime = dtTime.AddMinutes( -5.0 );
             }
             return (dtTime);
         }
