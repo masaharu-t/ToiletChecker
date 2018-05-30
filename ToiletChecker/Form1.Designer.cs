@@ -38,9 +38,10 @@
             // 
             // button_big
             // 
+            this.button_big.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.button_big.Location = new System.Drawing.Point(30, 65);
             this.button_big.Name = "button_big";
-            this.button_big.Size = new System.Drawing.Size(75, 75);
+            this.button_big.Size = new System.Drawing.Size(120, 75);
             this.button_big.TabIndex = 0;
             this.button_big.Text = "大";
             this.button_big.UseVisualStyleBackColor = true;
@@ -48,9 +49,10 @@
             // 
             // button_small
             // 
-            this.button_small.Location = new System.Drawing.Point(152, 65);
+            this.button_small.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button_small.Location = new System.Drawing.Point(196, 65);
             this.button_small.Name = "button_small";
-            this.button_small.Size = new System.Drawing.Size(75, 75);
+            this.button_small.Size = new System.Drawing.Size(119, 75);
             this.button_small.TabIndex = 1;
             this.button_small.Text = "小";
             this.button_small.UseVisualStyleBackColor = true;
@@ -58,9 +60,10 @@
             // 
             // button_big_small
             // 
-            this.button_big_small.Location = new System.Drawing.Point(277, 65);
+            this.button_big_small.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.button_big_small.Location = new System.Drawing.Point(361, 65);
             this.button_big_small.Name = "button_big_small";
-            this.button_big_small.Size = new System.Drawing.Size(75, 75);
+            this.button_big_small.Size = new System.Drawing.Size(120, 75);
             this.button_big_small.TabIndex = 2;
             this.button_big_small.Text = "大小";
             this.button_big_small.UseVisualStyleBackColor = true;
@@ -68,29 +71,30 @@
             // 
             // label1
             // 
-            this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("MS UI Gothic", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label1.Location = new System.Drawing.Point(63, 174);
+            this.label1.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label1.Location = new System.Drawing.Point(20, 170);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(153, 16);
+            this.label1.Size = new System.Drawing.Size(471, 30);
             this.label1.TabIndex = 3;
             this.label1.Text = "ボタンを押してください。";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(129, 204);
+            this.button1.Location = new System.Drawing.Point(196, 0);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(112, 44);
+            this.button1.Size = new System.Drawing.Size(119, 50);
             this.button1.TabIndex = 4;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // listView1
             // 
-            this.listView1.Location = new System.Drawing.Point(26, 301);
+            this.listView1.Location = new System.Drawing.Point(20, 230);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(471, 232);
+            this.listView1.Size = new System.Drawing.Size(471, 327);
             this.listView1.Sorting = System.Windows.Forms.SortOrder.Descending;
             this.listView1.TabIndex = 5;
             this.listView1.UseCompatibleStateImageBehavior = false;
@@ -100,18 +104,20 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(522, 569);
+            this.ClientSize = new System.Drawing.Size(514, 569);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button_big);
             this.Controls.Add(this.button_small);
             this.Controls.Add(this.button_big_small);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.MaximizeBox = false;
             this.Name = "Form1";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Toilet Checker";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
