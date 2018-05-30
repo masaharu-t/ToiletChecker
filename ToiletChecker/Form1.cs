@@ -192,7 +192,9 @@ namespace ToiletChecker
                 }
 
                 DiffTmSpan = dtTime.Subtract(PrevDtTime);
-                ssTimeSpan = DiffTmSpan.ToString(@"hh\:mm\:ss");
+                //ssTimeSpan = DiffTmSpan.ToString(@"hh\:mm\:ss");
+                ssTimeSpan = "";
+                ssTimeSpan = string.Format( "{0}日{1}時間{2}分 ", DiffTmSpan.Days, DiffTmSpan.Hours, DiffTmSpan.Minutes );
                 PrevDtTime = dtTime;
 
                 if ( str3.Contains("大") ) {
