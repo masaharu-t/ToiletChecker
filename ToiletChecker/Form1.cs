@@ -14,6 +14,7 @@ namespace ToiletChecker
     public partial class Form1 : Form
     {
         DateTime PrevdtTime;
+        Timer g_timer;
 
         public Form1()
         {
@@ -38,6 +39,7 @@ namespace ToiletChecker
             DiffTmSpan = dtTime.Subtract(PrevdtTime);
             ssPrevTimeSpan = MakeStringPrevTimeSpan( DiffTmSpan );
             SetListViewItem( dtTime, "小", ssPrevTimeSpan, "-" );
+            SetPrevBigPassedTime();
         }
 
         private void button_big_Click(object sender, EventArgs e)
@@ -64,6 +66,7 @@ namespace ToiletChecker
             ssPrevTimeSpan = MakeStringPrevTimeSpan(DiffTimeSpan);
             ssPrevBigTimeSpan = MakeStringPrevTimeSpan(DiffBigTimeSpan);
             SetListViewItem(dtTime, "大", ssPrevTimeSpan, ssPrevBigTimeSpan);
+            SetPrevBigPassedTime();
         }
 
         private void button_big_small_Click(object sender, EventArgs e)
@@ -90,6 +93,7 @@ namespace ToiletChecker
             ssPrevTimeSpan = MakeStringPrevTimeSpan(DiffTimeSpan);
             ssPrevBigTimeSpan = MakeStringPrevTimeSpan(DiffBigTimeSpan);
             SetListViewItem(dtTime, "大小", ssPrevTimeSpan, ssPrevBigTimeSpan);
+            SetPrevBigPassedTime();
         }
 
         private bool IsSameRecordTime(DateTime dtTime)
@@ -380,11 +384,34 @@ namespace ToiletChecker
             listView1.Columns.AddRange(colHeaderRegValue);
         }
 
+        private void CreateTimer()
+        {
+            // タイマー生成
+            g_timer = new Timer();
+            g_timer.Tick += new EventHandler(this.OnTick_FormsTimer);
+            g_timer.Interval = 60000;
+
+            // タイマーを開始
+            g_timer.Start();
+        }
+
+        public void OnTick_FormsTimer(object sender, EventArgs e)
+        {
+            SetPrevBigPassedTime();
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             SetListViewColumnInfo();
             ReadToiletCheckData();
             SetPrevBigPassedTime();
+            CreateTimer();
+        }
+
+        private void Form1_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            // タイマーを停止
+            g_timer.Stop();
         }
     }
 }
