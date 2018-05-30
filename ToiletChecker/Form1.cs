@@ -116,6 +116,12 @@ namespace ToiletChecker
             //        listView1.Items.Remove(item);
             //    }
             //}
+            AboutBox1 AboutBox = new AboutBox1();
+            
+            // AboutForm1 をモーダルで表示する
+            AboutBox.ShowDialog();
+            // 不要になった時点で破棄する (正しくは オブジェクトの破棄を保証する を参照)
+            AboutBox.Dispose();
         }
 
         private string MakeStringPrevTimeSpan(TimeSpan DiffTmSpan)

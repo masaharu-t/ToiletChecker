@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // アセンブリに関する一般情報は以下の属性セットをとおして制御されます。
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
-[assembly: AssemblyTitle("ToiletChecker")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("トイレチェッカー")]
+[assembly: AssemblyDescription("トイレ時刻を記録してチェックするアプリケーションです。")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("ToiletChecker")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCompany("ソフト工房たかはし")]
+[assembly: AssemblyProduct("トイレチェッカー")]
+[assembly: AssemblyCopyright("Copyright © 2016 ソフト工房たかはし")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
