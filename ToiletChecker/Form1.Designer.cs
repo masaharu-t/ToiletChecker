@@ -34,6 +34,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // button_big
@@ -72,7 +73,7 @@
             // label1
             // 
             this.label1.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.label1.Location = new System.Drawing.Point(20, 170);
+            this.label1.Location = new System.Drawing.Point(20, 155);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(471, 30);
             this.label1.TabIndex = 3;
@@ -87,6 +88,7 @@
             this.button1.TabIndex = 4;
             this.button1.Text = "button1";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // listView1
@@ -99,11 +101,21 @@
             this.listView1.UseCompatibleStateImageBehavior = false;
             this.listView1.View = System.Windows.Forms.View.List;
             // 
+            // label2
+            // 
+            this.label2.Font = new System.Drawing.Font("MS UI Gothic", 20.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label2.Location = new System.Drawing.Point(20, 190);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(471, 30);
+            this.label2.TabIndex = 6;
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(514, 569);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.listView1);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label1);
@@ -128,6 +140,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.Label label2;
     }
 }
 

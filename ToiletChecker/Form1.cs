@@ -57,7 +57,8 @@ namespace ToiletChecker
             label1.Text = dtTime.ToString() + "に大をしました。";
             WriteTextToiletTime( dtTime, "大" );
             //SetRecordTime(dtTime);
-            PrevBigDateTime = GetPrevBigDateTime();
+            PrevBigDateTime = DateTime.Now;
+            GetPrevBigDateTime(ref PrevBigDateTime);
             DiffTimeSpan = dtTime.Subtract(PrevdtTime);
             DiffBigTimeSpan = dtTime.Subtract(PrevBigDateTime);
             ssPrevTimeSpan = MakeStringPrevTimeSpan(DiffTimeSpan);
@@ -82,7 +83,8 @@ namespace ToiletChecker
             label1.Text = dtTime.ToString() + "に大小をしました。";
             WriteTextToiletTime( dtTime , "大小" );
             //SetRecordTime(dtTime);
-            PrevBigDateTime = GetPrevBigDateTime();
+            PrevBigDateTime = DateTime.Now;
+            GetPrevBigDateTime(ref PrevBigDateTime);
             DiffTimeSpan = dtTime.Subtract(PrevdtTime);
             DiffBigTimeSpan = dtTime.Subtract(PrevBigDateTime);
             ssPrevTimeSpan = MakeStringPrevTimeSpan(DiffTimeSpan);
@@ -286,28 +288,48 @@ namespace ToiletChecker
             return (dtTime);
         }
 
-        private DateTime GetPrevBigDateTime()
+        private bool GetPrevBigDateTime( ref DateTime dtTime )
         {
-            DateTime dtTime;
+            bool bRetExistBigTime;
             string ssDate;
             string ssKind;
             int iListCnt;
             int iCnt;
 
-            dtTime = DateTime.Now;
+            bRetExistBigTime = false;
             iListCnt = listView1.Items.Count;
-
             for (iCnt = 0; iCnt < iListCnt; iCnt++)
             {
                 ssKind = listView1.Items[iCnt].SubItems[2].Text;
                 if (ssKind.Contains("大"))
                 {
+                    bRetExistBigTime = true;
                     ssDate = listView1.Items[iCnt].SubItems[0].Text;
                     dtTime = DateTime.Parse(ssDate);
                     break;
                 }
             }
-            return (dtTime);
+            return ( bRetExistBigTime );
+        }
+
+        private void SetPrevBigPassedTime()
+        {
+            DateTime dtTimeNow;
+            DateTime dtTimeBig;
+            TimeSpan BigTmSpan;
+
+            dtTimeNow = DateTime.Now;
+            dtTimeBig = dtTimeNow;
+
+            if( GetPrevBigDateTime(ref dtTimeBig) )
+            {
+                BigTmSpan = dtTimeNow.Subtract(dtTimeBig);
+                label2.Text = "前回の大から" + MakeStringPrevTimeSpan(BigTmSpan) + "経過！";
+            }
+            else
+            {
+                label2.Text = "-";
+            }
         }
 
         private string GetStringWeekDay(DateTime dtTime)
@@ -378,6 +400,7 @@ namespace ToiletChecker
         {
             SetListViewColumnInfo();
             ReadToiletCheckData();
+            SetPrevBigPassedTime();
         }
     }
 }
