@@ -143,22 +143,6 @@ namespace ToiletChecker
             //        listView1.Items.Remove(item);
             //    }
             //}
-            // Form2 の新しいインスタンスを生成する
-            Form2 cForm2 = new Form2();
-            DateTime dtEditDateTime;
-
-            cForm2.SetEditDateTime( 1, GetPrevDateTime() );
-            // Form1 をモーダルで表示する
-            cForm2.ShowDialog();
-
-            dtEditDateTime = cForm2.GetEditDateTime();
-
-            listView1.Items[0].SubItems[0].Text = dtEditDateTime.ToString(@"yyyy/MM/dd HH:mm:ss");
-
-            // 不要になった時点で破棄する (正しくは オブジェクトの破棄を保証する を参照)
-            cForm2.Dispose();
-
-            SaveToiletData();
         }
 
         private string MakeStringPrevTimeSpan(TimeSpan DiffTmSpan)
@@ -487,6 +471,34 @@ namespace ToiletChecker
             cForm2.Dispose();
 
             //SaveToiletData();
+        }
+
+        private void buttonAddData_Click(object sender, EventArgs e)
+        {
+            // Form2 の新しいインスタンスを生成する
+            Form2 cForm2 = new Form2();
+            DateTime dtEditDateTime;
+
+            cForm2.SetEditDateTime(1, GetPrevDateTime());
+            // Form1 をモーダルで表示する
+            cForm2.ShowDialog();
+
+            if (cForm2.DialogResult == DialogResult.OK)
+            {
+                dtEditDateTime = cForm2.GetEditDateTime();
+
+                //            if ( listView1.Items.Count )
+                //            {
+                string[] item1 = { dtEditDateTime.ToString(@"yyyy/MM/dd HH:mm:ss"), GetStringWeekDay(dtEditDateTime), "大小", ""/*ssDiffTimeSpan*/, ""/*ssBigDiffTimeSpan*/ };
+                listView1.Items.Add(new ListViewItem(item1));
+                //                listView1.Items[0].SubItems[0].Text = dtEditDateTime.ToString(@"yyyy/MM/dd HH:mm:ss");
+                //            }
+
+                // 不要になった時点で破棄する (正しくは オブジェクトの破棄を保証する を参照)
+                cForm2.Dispose();
+
+                SaveToiletData();
+            }
         }
     }
 }
