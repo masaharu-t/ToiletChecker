@@ -122,7 +122,7 @@ namespace ToiletChecker
             Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
             StreamWriter writer =
               new StreamWriter(@"ToiletChecker.txt", true, sjisEnc);
-            writer.WriteLine( dtTime.ToString(@"yyyy/MM/dd") + " " + dtTime.ToString(@"hh:mm:ss") + "," + str );
+            writer.WriteLine( dtTime.ToString(@"yyyy/MM/dd") + " " + dtTime.ToString(@"HH:mm:ss") + "," + str );
             writer.Close();
         }
 
