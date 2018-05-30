@@ -115,6 +115,7 @@
             // 
             // buttonAddData
             // 
+            this.buttonAddData.Font = new System.Drawing.Font("MS UI Gothic", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
             this.buttonAddData.Location = new System.Drawing.Point(361, 0);
             this.buttonAddData.Name = "buttonAddData";
             this.buttonAddData.Size = new System.Drawing.Size(120, 50);
