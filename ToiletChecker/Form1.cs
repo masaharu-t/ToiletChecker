@@ -319,7 +319,7 @@ namespace ToiletChecker
             }
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        private void SetListViewColumnInfo()
         {
             ColumnHeader columnTime;
             ColumnHeader columnWeekDay;
@@ -331,11 +331,7 @@ namespace ToiletChecker
             listView1.GridLines = true;
             listView1.View = View.Details;
             listView1.Sorting = SortOrder.Ascending;
-            
 
-            // listView1.Columns.Add("トイレ時刻",120);
-            // listView1.Columns.Add("曜日", 30);
-            // listView1.Columns.Add("トイレ種別",70);
             columnTime = new ColumnHeader();
             columnWeekDay = new ColumnHeader();
             columnText = new ColumnHeader();
@@ -344,25 +340,29 @@ namespace ToiletChecker
 
             columnTime.Text = "トイレ時刻";
             columnTime.Width = 120;
-            
+
             columnWeekDay.Text = "曜日";
             columnWeekDay.Width = 36;
             columnWeekDay.TextAlign = HorizontalAlignment.Center;
-            
+
             columnText.Text = "種別";
             columnText.Width = 36;
             columnText.TextAlign = HorizontalAlignment.Center;
-            
+
             columnPrevDiff.Text = "前回からの経過時間";
             columnPrevDiff.Width = 120;
-            
+
             columnBigPrevDiff.Text = "前回からの大経過時間";
             columnBigPrevDiff.Width = 136;
 
             ColumnHeader[] colHeaderRegValue =
             { columnTime, columnWeekDay, columnText, columnPrevDiff, columnBigPrevDiff };
             listView1.Columns.AddRange(colHeaderRegValue);
+        }
 
+        private void Form1_Load(object sender, EventArgs e)
+        {
+            SetListViewColumnInfo();
             ReadToiletCheckData();
         }
     }
