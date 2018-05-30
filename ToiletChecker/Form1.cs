@@ -174,8 +174,8 @@ namespace ToiletChecker
             int iReadCnt;
             int iBigCnt;
             string str;
-            string str2;
-            string str3 = null;
+            string ToiletDateTime;
+            string ToiletKind;
             string ssTimeSpan;
             string ssBigTimeSpan;
             Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
@@ -214,21 +214,22 @@ namespace ToiletChecker
                     }
                 }
 
-                str2 = str.Substring(0, 19);
-                dtTime = DateTime.Parse(str2);
+                ToiletDateTime = null;
+                ToiletDateTime = str.Substring(0, 19);
+                dtTime = DateTime.Parse(ToiletDateTime);
 
-                str3 = null;
+                ToiletKind = null;
                 for (iCount += 1; iCount < iLen; iCount++)
                 {
                     str1char = str.Substring(iCount, 1);
-                    str3 += str1char;
+                    ToiletKind += str1char;
                 }
 
                 DiffTmSpan = dtTime.Subtract(PrevDtTime);
                 ssTimeSpan = MakeStringPrevTimeSpan( DiffTmSpan );
                 PrevDtTime = dtTime;
 
-                if ( str3.Contains("大") ) {
+                if (ToiletKind.Contains("大") ) {
                     iBigCnt++;
                     DiffBigTmSpan = dtTime.Subtract(BigPrevDtTime);
                     BigPrevDtTime = dtTime;
@@ -247,7 +248,7 @@ namespace ToiletChecker
                     ssBigTimeSpan = "-";
                 }
 
-                SetListViewItem(dtTime, str3.ToString(), ssTimeSpan, ssBigTimeSpan );
+                SetListViewItem(dtTime, ToiletKind.ToString(), ssTimeSpan, ssBigTimeSpan );
 
 
                 str = reader.ReadLine();
@@ -257,6 +258,44 @@ namespace ToiletChecker
                 }
             }
             reader.Close();
+        }
+
+        private DateTime GetToiletTime( int iItemNo )
+        {
+            DateTime dtRetDateTime;
+
+            dtRetDateTime = GetListViewDateTime( iItemNo );
+
+            return ( dtRetDateTime );
+        }
+
+        private DateTime GetPrevToiletTime( int iItemNo )
+        {
+            DateTime dtRetDateTime;
+
+            dtRetDateTime = GetListViewDateTime( iItemNo - 1 );
+
+            return ( dtRetDateTime );
+        }
+
+        private DateTime CalcPrevBigToiletTime()
+        {
+            return DateTime.Now;
+        }
+
+        private void AllCalcPrevBigToiletTime()
+        {
+
+        }
+
+        private void CalcPrevToiletTime()
+        {
+
+        }
+
+        private void AllCalcPrevToiletTime()
+        {
+
         }
 
         private void SaveToiletData()
