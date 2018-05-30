@@ -309,14 +309,20 @@ namespace ToiletChecker
 
             columnTime.Text = "トイレ時刻";
             columnTime.Width = 120;
+            
             columnWeekDay.Text = "曜日";
-            columnWeekDay.Width = 50;
-            columnText.Text = "トイレ種別";
-            columnText.Width = 70;
+            columnWeekDay.Width = 36;
+            columnWeekDay.TextAlign = HorizontalAlignment.Center;
+            
+            columnText.Text = "種別";
+            columnText.Width = 36;
+            columnText.TextAlign = HorizontalAlignment.Center;
+            
             columnPrevDiff.Text = "前回からの経過時間";
             columnPrevDiff.Width = 120;
+            
             columnBigPrevDiff.Text = "前回からの大経過時間";
-            columnBigPrevDiff.Width = 120;
+            columnBigPrevDiff.Width = 136;
 
             ColumnHeader[] colHeaderRegValue =
             { columnTime, columnWeekDay, columnText, columnPrevDiff, columnBigPrevDiff };
