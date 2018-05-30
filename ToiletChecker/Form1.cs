@@ -24,9 +24,9 @@ namespace ToiletChecker
         private void button_small_Click(object sender, EventArgs e)
         {
             DateTime dtTime = DateTime.Now;
-            TimeSpan DiffTmSpan;
+            //TimeSpan DiffTmSpan;
             DayOfWeek stDayOfWeek = dtTime.DayOfWeek;
-            string ssPrevTimeSpan;
+            //string ssPrevTimeSpan;
 
             PrevdtTime = GetPrevDateTime();
             if (IsSameRecordTime( dtTime ) )
@@ -36,20 +36,21 @@ namespace ToiletChecker
             label1.Text = dtTime.ToString() + "に小をしました。";
             WriteTextToiletTime( dtTime, "小" );
             //SetRecordTime( dtTime );
-            DiffTmSpan = dtTime.Subtract(PrevdtTime);
-            ssPrevTimeSpan = MakeStringPrevTimeSpan( DiffTmSpan );
-            SetListViewItem( dtTime, "小", ssPrevTimeSpan, "-" );
+            //DiffTmSpan = dtTime.Subtract(PrevdtTime);
+            //ssPrevTimeSpan = MakeStringPrevTimeSpan( DiffTmSpan );
+            SetListViewItem( dtTime, "小", "-"/*ssPrevTimeSpan*/, "-" );
+            CalcToiletSpan();
             SetPrevBigPassedTime();
         }
 
         private void button_big_Click(object sender, EventArgs e)
         {
             DateTime dtTime = DateTime.Now;
-            TimeSpan DiffTimeSpan;
-            TimeSpan DiffBigTimeSpan;
-            DateTime PrevBigDateTime;
-            string ssPrevTimeSpan;
-            string ssPrevBigTimeSpan;
+            //TimeSpan DiffTimeSpan;
+            //TimeSpan DiffBigTimeSpan;
+            //DateTime PrevBigDateTime;
+            //string ssPrevTimeSpan;
+            //string ssPrevBigTimeSpan;
 
             PrevdtTime = GetPrevDateTime();
             if (IsSameRecordTime(dtTime) )
@@ -59,24 +60,25 @@ namespace ToiletChecker
             label1.Text = dtTime.ToString() + "に大をしました。";
             WriteTextToiletTime( dtTime, "大" );
             //SetRecordTime(dtTime);
-            PrevBigDateTime = DateTime.Now;
-            GetPrevBigDateTime(ref PrevBigDateTime);
-            DiffTimeSpan = dtTime.Subtract(PrevdtTime);
-            DiffBigTimeSpan = dtTime.Subtract(PrevBigDateTime);
-            ssPrevTimeSpan = MakeStringPrevTimeSpan(DiffTimeSpan);
-            ssPrevBigTimeSpan = MakeStringPrevTimeSpan(DiffBigTimeSpan);
-            SetListViewItem(dtTime, "大", ssPrevTimeSpan, ssPrevBigTimeSpan);
+            //PrevBigDateTime = DateTime.Now;
+            //GetPrevBigDateTime(ref PrevBigDateTime);
+            //DiffTimeSpan = dtTime.Subtract(PrevdtTime);
+            //DiffBigTimeSpan = dtTime.Subtract(PrevBigDateTime);
+            //ssPrevTimeSpan = MakeStringPrevTimeSpan(DiffTimeSpan);
+            //ssPrevBigTimeSpan = MakeStringPrevTimeSpan(DiffBigTimeSpan);
+            SetListViewItem(dtTime, "大", "-"/*ssPrevTimeSpan*/, "-"/*ssPrevBigTimeSpan*/);
+            CalcToiletSpan();
             SetPrevBigPassedTime();
         }
 
         private void button_big_small_Click(object sender, EventArgs e)
         {
             DateTime dtTime = DateTime.Now;
-            TimeSpan DiffTimeSpan;
-            TimeSpan DiffBigTimeSpan;
-            DateTime PrevBigDateTime;
-            string ssPrevTimeSpan;
-            string ssPrevBigTimeSpan;
+            //TimeSpan DiffTimeSpan;
+            //TimeSpan DiffBigTimeSpan;
+            //DateTime PrevBigDateTime;
+            //string ssPrevTimeSpan;
+            //string ssPrevBigTimeSpan;
 
             PrevdtTime = GetPrevDateTime();
             if (IsSameRecordTime(dtTime))
@@ -86,13 +88,14 @@ namespace ToiletChecker
             label1.Text = dtTime.ToString() + "に大小をしました。";
             WriteTextToiletTime( dtTime , "大小" );
             //SetRecordTime(dtTime);
-            PrevBigDateTime = DateTime.Now;
-            GetPrevBigDateTime(ref PrevBigDateTime);
-            DiffTimeSpan = dtTime.Subtract(PrevdtTime);
-            DiffBigTimeSpan = dtTime.Subtract(PrevBigDateTime);
-            ssPrevTimeSpan = MakeStringPrevTimeSpan(DiffTimeSpan);
-            ssPrevBigTimeSpan = MakeStringPrevTimeSpan(DiffBigTimeSpan);
-            SetListViewItem(dtTime, "大小", ssPrevTimeSpan, ssPrevBigTimeSpan);
+            //PrevBigDateTime = DateTime.Now;
+            //GetPrevBigDateTime(ref PrevBigDateTime);
+            //DiffTimeSpan = dtTime.Subtract(PrevdtTime);
+            //DiffBigTimeSpan = dtTime.Subtract(PrevBigDateTime);
+            //ssPrevTimeSpan = MakeStringPrevTimeSpan(DiffTimeSpan);
+            //ssPrevBigTimeSpan = MakeStringPrevTimeSpan(DiffBigTimeSpan);
+            SetListViewItem(dtTime, "大小", "-"/*ssPrevTimeSpan*/, "-"/*ssPrevBigTimeSpan*/);
+            CalcToiletSpan();
             SetPrevBigPassedTime();
         }
 
@@ -169,15 +172,15 @@ namespace ToiletChecker
             DateTime dtTime;
             DateTime PrevDtTime;
             DateTime BigPrevDtTime;
-            TimeSpan DiffTmSpan;
-            TimeSpan DiffBigTmSpan;
+            //TimeSpan DiffTmSpan;
+            //TimeSpan DiffBigTmSpan;
             int iReadCnt;
-            int iBigCnt;
+            //int iBigCnt;
             string str;
             string ToiletDateTime;
             string ToiletKind;
-            string ssTimeSpan;
-            string ssBigTimeSpan;
+            //string ssTimeSpan;
+            //string ssBigTimeSpan;
             Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
 
             if( File.Exists(@"ToiletChecker.txt") == false )
@@ -194,7 +197,7 @@ namespace ToiletChecker
                 return;
             }
             iReadCnt = 0;
-            iBigCnt = 0;
+            //iBigCnt = 0;
             PrevDtTime = DateTime.Now;
             BigPrevDtTime = DateTime.Now;
             while (str.Length != 0)
@@ -225,30 +228,32 @@ namespace ToiletChecker
                     ToiletKind += str1char;
                 }
 
-                DiffTmSpan = dtTime.Subtract(PrevDtTime);
-                ssTimeSpan = MakeStringPrevTimeSpan( DiffTmSpan );
-                PrevDtTime = dtTime;
+                //DiffTmSpan = dtTime.Subtract(PrevDtTime);
+                //ssTimeSpan = MakeStringPrevTimeSpan( DiffTmSpan );
+                //PrevDtTime = dtTime;
+                //ssTimeSpan = "-";
 
-                if (ToiletKind.Contains("大") ) {
-                    iBigCnt++;
-                    DiffBigTmSpan = dtTime.Subtract(BigPrevDtTime);
-                    BigPrevDtTime = dtTime;
-                    
-                    if ( iBigCnt != 1)
-                    {
-                        ssBigTimeSpan = MakeStringPrevTimeSpan( DiffBigTmSpan );
-                    }
-                    else
-                    {
-                        ssBigTimeSpan = "-";
-                    }
-                }
-                else
-                {
-                    ssBigTimeSpan = "-";
-                }
+                //if (ToiletKind.Contains("大") ) {
+                //    iBigCnt++;
+                //    DiffBigTmSpan = dtTime.Subtract(BigPrevDtTime);
+                //    BigPrevDtTime = dtTime;
+                //    
+                //    if ( iBigCnt != 1)
+                //    {
+                //        ssBigTimeSpan = MakeStringPrevTimeSpan( DiffBigTmSpan );
+                //    }
+                //    else
+                //    {
+                //        ssBigTimeSpan = "-";
+                //    }
+                //}
+                //else
+                //{
+                //    ssBigTimeSpan = "-";
+                //}
+                //ssBigTimeSpan = "-";
 
-                SetListViewItem(dtTime, ToiletKind.ToString(), ssTimeSpan, ssBigTimeSpan );
+                SetListViewItem(dtTime, ToiletKind.ToString(), "-"/*ssTimeSpan*/, "-"/*ssBigTimeSpan*/ );
 
 
                 str = reader.ReadLine();
@@ -511,6 +516,7 @@ namespace ToiletChecker
         {
             SetListViewColumnInfo();
             ReadToiletCheckData();
+            CalcToiletSpan();
             SetPrevBigPassedTime();
             CreateTimer();
         }
@@ -544,6 +550,8 @@ namespace ToiletChecker
                 listView1.Items[iSelectedIndex].SubItems[0].Text = dtEditDateTime.ToString(@"yyyy/MM/dd HH:mm:ss");
                 listView1.Items[iSelectedIndex].SubItems[2].Text = ssToiletKind.ToString();
 
+                CalcToiletSpan();
+
                 SaveNewToiletData();
             }
             // 不要になった時点で破棄する (正しくは オブジェクトの破棄を保証する を参照)
@@ -575,14 +583,95 @@ namespace ToiletChecker
                 dtEditDateTime = cForm2.GetEditDateTime();
                 ssToiletKind   = cForm2.GetToiletKind();
 
-                string[] item1 = { dtEditDateTime.ToString(@"yyyy/MM/dd HH:mm:ss"), GetStringWeekDay(dtEditDateTime), ssToiletKind, ""/*ssDiffTimeSpan*/, ""/*ssBigDiffTimeSpan*/ };
+                string[] item1 = { dtEditDateTime.ToString(@"yyyy/MM/dd HH:mm:ss"), GetStringWeekDay(dtEditDateTime), ssToiletKind, "-"/*ssDiffTimeSpan*/, "-"/*ssBigDiffTimeSpan*/ };
                 listView1.Items.Add(new ListViewItem(item1));
+
+                CalcToiletSpan();
 
                 SaveNewToiletData();
             }
 
             // 不要になった時点で破棄する (正しくは オブジェクトの破棄を保証する を参照)
             cForm2.Dispose();
+        }
+
+        private void CalcToiletSpanAll()
+        {
+            int iCnt;
+            DateTime dtTime;
+            DateTime PrevDtTime;
+            TimeSpan DiffTmSpan;
+            string ssTimeSpan;
+
+            if (listView1.Items.Count < 2)
+            {
+                listView1.Items[0].SubItems[3].Text = "-";
+                return;
+            }
+            else
+            {
+                listView1.Items[listView1.Items.Count - 1].SubItems[3].Text = "-";
+            }
+
+            for (iCnt = listView1.Items.Count - 2; iCnt >= 0; iCnt--)
+            {
+                dtTime     = DateTime.Parse(listView1.Items[iCnt].SubItems[0].Text);
+                PrevDtTime = DateTime.Parse(listView1.Items[iCnt + 1].SubItems[0].Text);
+
+                DiffTmSpan = dtTime.Subtract(PrevDtTime);
+                ssTimeSpan = MakeStringPrevTimeSpan( DiffTmSpan );
+                listView1.Items[iCnt].SubItems[3].Text = ssTimeSpan;
+            }
+        }
+
+        private void CalcToiletSpanBig()
+        {
+            int iCnt;
+            DateTime dtTime;
+            DateTime PrevDtTime;
+            TimeSpan DiffTmSpan;
+            string ssTimeSpan;
+            string ssToiletKind;
+            int iBigCnt;
+
+            if (listView1.Items.Count < 2)
+            {
+                listView1.Items[0].SubItems[4].Text = "-";
+                return;
+            }
+            else
+            {
+                listView1.Items[listView1.Items.Count - 1].SubItems[4].Text = "-";
+            }
+
+            iBigCnt = 0;
+            PrevDtTime = DateTime.Now;
+            for (iCnt = listView1.Items.Count - 1; iCnt >= 0; iCnt--)
+            {
+                ssToiletKind = listView1.Items[iCnt].SubItems[2].Text;
+                dtTime = DateTime.Parse(listView1.Items[iCnt].SubItems[0].Text);
+                if( ssToiletKind.Contains("大") )
+                {
+                    iBigCnt++;
+                    if (iBigCnt == 1)
+                    {
+                        listView1.Items[iCnt].SubItems[4].Text = "-";
+                    }
+                    else
+                    {
+                        DiffTmSpan = dtTime.Subtract(PrevDtTime);
+                        ssTimeSpan = MakeStringPrevTimeSpan(DiffTmSpan);
+                        listView1.Items[iCnt].SubItems[4].Text = ssTimeSpan;
+                    }
+                    PrevDtTime = dtTime;
+                }
+            }
+        }
+
+        private void CalcToiletSpan()
+        {
+            CalcToiletSpanAll();
+            CalcToiletSpanBig();
         }
     }
 }
