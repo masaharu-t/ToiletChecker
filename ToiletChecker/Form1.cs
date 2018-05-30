@@ -274,12 +274,12 @@ namespace ToiletChecker
         {
             if (listView1.Items.Count > 0)
             {
-                string[] item1 = { dtTime.ToString(@"yyyy/MM/dd hh:mm:ss"), GetStringWeekDay(dtTime), ToiletKind, ssDiffTimeSpan, ssBigDiffTimeSpan };
+                string[] item1 = { dtTime.ToString(@"yyyy/MM/dd HH:mm:ss"), GetStringWeekDay(dtTime), ToiletKind, ssDiffTimeSpan, ssBigDiffTimeSpan };
                 listView1.Items.Add(new ListViewItem(item1));
             }
             else
             {
-                string[] item1 = { dtTime.ToString(@"yyyy/MM/dd hh:mm:ss"), GetStringWeekDay(dtTime), ToiletKind, "-", "-" };
+                string[] item1 = { dtTime.ToString(@"yyyy/MM/dd HH:mm:ss"), GetStringWeekDay(dtTime), ToiletKind, "-", "-" };
                 listView1.Items.Add(new ListViewItem(item1));
             }
         }
