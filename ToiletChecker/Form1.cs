@@ -146,6 +146,12 @@ namespace ToiletChecker
             string ssTimeSpan;
             string ssBigTimeSpan;
             Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
+
+            if( File.Exists(@"ToiletChecker.txt") == false )
+            {
+                return;
+            }
+
             StreamReader reader =
               new StreamReader(@"ToiletChecker.txt", sjisEnc);
             str = reader.ReadLine();
