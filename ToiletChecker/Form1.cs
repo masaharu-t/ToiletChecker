@@ -98,7 +98,7 @@ namespace ToiletChecker
             DateTime dtTimeLocal;
             int iRet;
             dtTimeLocal = PrevdtTime;
-//          dtTimeLocal = dtTimeLocal.AddMinutes(1.0);
+            dtTimeLocal = dtTimeLocal.AddMinutes(1.0);
             iRet = dtTimeLocal.CompareTo(dtTime);
             if (dtTimeLocal.CompareTo(dtTime) > 0)
             {
