@@ -507,7 +507,7 @@ namespace ToiletChecker
             // 不要になった時点で破棄する (正しくは オブジェクトの破棄を保証する を参照)
             cForm2.Dispose();
 
-            //SaveToiletData();
+            SaveNewToiletData();
         }
 
         private void buttonAddData_Click(object sender, EventArgs e)
