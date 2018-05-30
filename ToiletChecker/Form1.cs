@@ -677,6 +677,9 @@ namespace ToiletChecker
                         {
                             iAfterDeletedItemIndex--;
                         }
+                    }
+                    if (listView1.Items.Count != 0)
+                    {
                         listView1.Items[iAfterDeletedItemIndex].Focused = true;
                         listView1.Items[iAfterDeletedItemIndex].Selected = true;
                     }
