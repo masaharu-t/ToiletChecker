@@ -135,14 +135,30 @@ namespace ToiletChecker
         {
             //ReadToiletCheckData();
             // 全リストを取得し、選択されているアイテムをリストビューから削除する
-            foreach (ListViewItem item in listView1.Items)
-            {
-                // 選択されているか確認する
-                if (item.Selected)
-                {
-                    listView1.Items.Remove(item);
-                }
-            }
+            //foreach (ListViewItem item in listView1.Items)
+            //{
+            //    // 選択されているか確認する
+            //    if (item.Selected)
+            //    {
+            //        listView1.Items.Remove(item);
+            //    }
+            //}
+            // Form2 の新しいインスタンスを生成する
+            Form2 cForm2 = new Form2();
+            DateTime dtEditDateTime;
+
+            cForm2.SetEditDateTime( 1, GetPrevDateTime() );
+            // Form1 をモーダルで表示する
+            cForm2.ShowDialog();
+
+            dtEditDateTime = cForm2.GetEditDateTime();
+
+            listView1.Items[0].SubItems[0].Text = dtEditDateTime.ToString(@"yyyy/MM/dd HH:mm:ss");
+
+            // 不要になった時点で破棄する (正しくは オブジェクトの破棄を保証する を参照)
+            cForm2.Dispose();
+
+            SaveToiletData();
         }
 
         private string MakeStringPrevTimeSpan(TimeSpan DiffTmSpan)
@@ -259,6 +275,24 @@ namespace ToiletChecker
             reader.Close();
         }
 
+        private void SaveToiletData()
+        {
+            int iCnt;
+            string ss1LineData;
+
+            Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
+            StreamWriter writer =
+              new StreamWriter(@"ToiletChecker.txt", true, sjisEnc);
+
+            for (iCnt = listView1.Items.Count-1; iCnt >= 0; iCnt--)
+            {
+                ss1LineData = string.Format(listView1.Items[iCnt].SubItems[0].Text + "," 
+                                            + listView1.Items[iCnt].SubItems[2].Text);
+                writer.WriteLine(ss1LineData);
+            }
+            writer.Close();
+        }
+
         private DateTime GetPrevDateTime()
         {
             DateTime dtTime;
@@ -267,6 +301,23 @@ namespace ToiletChecker
             if (listView1.Items.Count > 0)
             {
                 ssDate = listView1.Items[0].SubItems[0].Text;
+                dtTime = DateTime.Parse(ssDate);
+            }
+            else
+            {
+                dtTime = DateTime.Now;
+            }
+            return (dtTime);
+        }
+
+        private DateTime GetListViewDateTime(int iIndex)
+        {
+            DateTime dtTime;
+            string ssDate;
+
+            if (listView1.Items.Count > 0)
+            {
+                ssDate = listView1.Items[iIndex].SubItems[0].Text;
                 dtTime = DateTime.Parse(ssDate);
             }
             else
@@ -412,6 +463,30 @@ namespace ToiletChecker
         {
             // タイマーを停止
             g_timer.Stop();
+        }
+
+        private void listView1_DoubleClick(object sender, EventArgs e)
+        {
+            int iSelectedIndex;
+
+            iSelectedIndex = listView1.SelectedItems[0].Index;
+
+            // Form2 の新しいインスタンスを生成する
+            Form2 cForm2 = new Form2();
+            DateTime dtEditDateTime;
+
+            cForm2.SetEditDateTime(iSelectedIndex, GetListViewDateTime(iSelectedIndex));
+            // Form1 をモーダルで表示する
+            cForm2.ShowDialog();
+
+            dtEditDateTime = cForm2.GetEditDateTime();
+
+            listView1.Items[iSelectedIndex].SubItems[0].Text = dtEditDateTime.ToString(@"yyyy/MM/dd HH:mm:ss");
+
+            // 不要になった時点で破棄する (正しくは オブジェクトの破棄を保証する を参照)
+            cForm2.Dispose();
+
+            //SaveToiletData();
         }
     }
 }
