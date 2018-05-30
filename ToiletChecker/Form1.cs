@@ -277,6 +277,24 @@ namespace ToiletChecker
             writer.Close();
         }
 
+        private void SaveNewToiletData()
+        {
+            int iCnt;
+            string ss1LineData;
+
+            Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
+            StreamWriter writer =
+              new StreamWriter(@"ToiletChecker.txt", false, sjisEnc);
+
+            for (iCnt = listView1.Items.Count - 1; iCnt >= 0; iCnt--)
+            {
+                ss1LineData = string.Format(listView1.Items[iCnt].SubItems[0].Text + ","
+                                            + listView1.Items[iCnt].SubItems[2].Text);
+                writer.WriteLine(ss1LineData);
+            }
+            writer.Close();
+        }
+
         private DateTime GetPrevDateTime()
         {
             DateTime dtTime;
@@ -477,19 +495,29 @@ namespace ToiletChecker
         {
             // Form2 の新しいインスタンスを生成する
             Form2 cForm2 = new Form2();
+            DateTime dtNow;
+            string ssString;
+            DateTime dtInitialDate;
             DateTime dtEditDateTime;
+            string ssToiletKind;
 
-            cForm2.SetEditDateTime(1, GetPrevDateTime());
+            dtNow = DateTime.Now;
+            ssString = dtNow.ToString(@"yyyy/MM/dd HH:mm:00");
+            dtInitialDate = DateTime.Parse(ssString);
+            cForm2.SetEditDateTime(1, dtInitialDate);
+            cForm2.SetInitialToiletKind();
+            cForm2.SetModifyButtonText("追加");
             // Form1 をモーダルで表示する
             cForm2.ShowDialog();
 
             if (cForm2.DialogResult == DialogResult.OK)
             {
                 dtEditDateTime = cForm2.GetEditDateTime();
+                ssToiletKind   = cForm2.GetToiletKind();
 
                 //            if ( listView1.Items.Count )
                 //            {
-                string[] item1 = { dtEditDateTime.ToString(@"yyyy/MM/dd HH:mm:ss"), GetStringWeekDay(dtEditDateTime), "大小", ""/*ssDiffTimeSpan*/, ""/*ssBigDiffTimeSpan*/ };
+                string[] item1 = { dtEditDateTime.ToString(@"yyyy/MM/dd HH:mm:ss"), GetStringWeekDay(dtEditDateTime), ssToiletKind, ""/*ssDiffTimeSpan*/, ""/*ssBigDiffTimeSpan*/ };
                 listView1.Items.Add(new ListViewItem(item1));
                 //                listView1.Items[0].SubItems[0].Text = dtEditDateTime.ToString(@"yyyy/MM/dd HH:mm:ss");
                 //            }
@@ -497,7 +525,7 @@ namespace ToiletChecker
                 // 不要になった時点で破棄する (正しくは オブジェクトの破棄を保証する を参照)
                 cForm2.Dispose();
 
-                SaveToiletData();
+                SaveNewToiletData();
             }
         }
     }

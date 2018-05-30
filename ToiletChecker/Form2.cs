@@ -42,6 +42,36 @@ namespace ToiletChecker
             return (dtEditDateTime);
         }
 
+        public string GetToiletKind()
+        {
+            string ssRetToiletKind;
+
+            if( radioButton1.Checked )
+            {
+                ssRetToiletKind = "大";
+            }
+            else if (radioButton2.Checked)
+            {
+                ssRetToiletKind = "小";
+            }
+            else
+            {
+                ssRetToiletKind = "大小";
+            }
+
+            return (ssRetToiletKind);
+        }
+
+        public void SetInitialToiletKind()
+        {
+            radioButton2.Checked = true;
+        }
+
+        public void SetModifyButtonText( string ssButtonText )
+        {
+            button1.Text = ssButtonText;
+        }
+
         private void Form2_Load(object sender, EventArgs e)
         {
             // コンボボックスの初期化
