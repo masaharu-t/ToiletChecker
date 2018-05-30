@@ -606,10 +606,30 @@ namespace ToiletChecker
             }
         }
 
+        private void DrawBigLineBkgnd()
+        {
+            int iCnt;
+            string ssToiletKind;
+
+            for (iCnt = 0; iCnt < listView1.Items.Count; iCnt++ )
+            {
+                ssToiletKind = listView1.Items[iCnt].SubItems[2].Text;
+                if (ssToiletKind.Contains("大"))
+                {
+                    listView1.Items[iCnt].BackColor = Color.SandyBrown;
+                }
+                else
+                {
+                    listView1.Items[iCnt].BackColor = Color.Empty;
+                }
+            }
+        }
+
         private void CalcToiletSpan()
         {
             CalcToiletSpanAll();
             CalcToiletSpanBig();
+            DrawBigLineBkgnd();
         }
     }
 }
