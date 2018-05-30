@@ -533,20 +533,21 @@ namespace ToiletChecker
             string ssToiletKind;
 
             cForm2.SetEditDateTime(iSelectedIndex, GetListViewDateTime(iSelectedIndex));
-            cForm2.SetToiletKind( GetListViewToiletKind(iSelectedIndex) );
+            cForm2.SetToiletKind(GetListViewToiletKind(iSelectedIndex));
             // Form1 をモーダルで表示する
             cForm2.ShowDialog();
 
-            dtEditDateTime = cForm2.GetEditDateTime();
-            ssToiletKind = cForm2.GetToiletKind();
+            if (cForm2.DialogResult == DialogResult.OK) {
+                dtEditDateTime = cForm2.GetEditDateTime();
+                ssToiletKind = cForm2.GetToiletKind();
 
-            listView1.Items[iSelectedIndex].SubItems[0].Text = dtEditDateTime.ToString(@"yyyy/MM/dd HH:mm:ss");
-            listView1.Items[iSelectedIndex].SubItems[2].Text = ssToiletKind.ToString();
+                listView1.Items[iSelectedIndex].SubItems[0].Text = dtEditDateTime.ToString(@"yyyy/MM/dd HH:mm:ss");
+                listView1.Items[iSelectedIndex].SubItems[2].Text = ssToiletKind.ToString();
 
+                SaveNewToiletData();
+            }
             // 不要になった時点で破棄する (正しくは オブジェクトの破棄を保証する を参照)
             cForm2.Dispose();
-
-            SaveNewToiletData();
         }
 
         private void buttonAddData_Click(object sender, EventArgs e)
@@ -574,18 +575,14 @@ namespace ToiletChecker
                 dtEditDateTime = cForm2.GetEditDateTime();
                 ssToiletKind   = cForm2.GetToiletKind();
 
-                //            if ( listView1.Items.Count )
-                //            {
                 string[] item1 = { dtEditDateTime.ToString(@"yyyy/MM/dd HH:mm:ss"), GetStringWeekDay(dtEditDateTime), ssToiletKind, ""/*ssDiffTimeSpan*/, ""/*ssBigDiffTimeSpan*/ };
                 listView1.Items.Add(new ListViewItem(item1));
-                //                listView1.Items[0].SubItems[0].Text = dtEditDateTime.ToString(@"yyyy/MM/dd HH:mm:ss");
-                //            }
-
-                // 不要になった時点で破棄する (正しくは オブジェクトの破棄を保証する を参照)
-                cForm2.Dispose();
 
                 SaveNewToiletData();
             }
+
+            // 不要になった時点で破棄する (正しくは オブジェクトの破棄を保証する を参照)
+            cForm2.Dispose();
         }
     }
 }
