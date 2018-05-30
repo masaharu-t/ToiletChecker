@@ -24,9 +24,6 @@ namespace ToiletChecker
         private void button_small_Click(object sender, EventArgs e)
         {
             DateTime dtTime = DateTime.Now;
-            //TimeSpan DiffTmSpan;
-            DayOfWeek stDayOfWeek = dtTime.DayOfWeek;
-            //string ssPrevTimeSpan;
 
             PrevdtTime = GetPrevDateTime();
             if (IsSameRecordTime( dtTime ) )
@@ -35,10 +32,7 @@ namespace ToiletChecker
             }
             label1.Text = dtTime.ToString() + "に小をしました。";
             WriteTextToiletTime( dtTime, "小" );
-            //SetRecordTime( dtTime );
-            //DiffTmSpan = dtTime.Subtract(PrevdtTime);
-            //ssPrevTimeSpan = MakeStringPrevTimeSpan( DiffTmSpan );
-            SetListViewItem( dtTime, "小", "-"/*ssPrevTimeSpan*/, "-" );
+            SetListViewItem( dtTime, "小", "-", "-" );
             CalcToiletSpan();
             SetPrevBigPassedTime();
         }
@@ -46,11 +40,6 @@ namespace ToiletChecker
         private void button_big_Click(object sender, EventArgs e)
         {
             DateTime dtTime = DateTime.Now;
-            //TimeSpan DiffTimeSpan;
-            //TimeSpan DiffBigTimeSpan;
-            //DateTime PrevBigDateTime;
-            //string ssPrevTimeSpan;
-            //string ssPrevBigTimeSpan;
 
             PrevdtTime = GetPrevDateTime();
             if (IsSameRecordTime(dtTime) )
@@ -59,14 +48,7 @@ namespace ToiletChecker
             }
             label1.Text = dtTime.ToString() + "に大をしました。";
             WriteTextToiletTime( dtTime, "大" );
-            //SetRecordTime(dtTime);
-            //PrevBigDateTime = DateTime.Now;
-            //GetPrevBigDateTime(ref PrevBigDateTime);
-            //DiffTimeSpan = dtTime.Subtract(PrevdtTime);
-            //DiffBigTimeSpan = dtTime.Subtract(PrevBigDateTime);
-            //ssPrevTimeSpan = MakeStringPrevTimeSpan(DiffTimeSpan);
-            //ssPrevBigTimeSpan = MakeStringPrevTimeSpan(DiffBigTimeSpan);
-            SetListViewItem(dtTime, "大", "-"/*ssPrevTimeSpan*/, "-"/*ssPrevBigTimeSpan*/);
+            SetListViewItem(dtTime, "大", "-", "-");
             CalcToiletSpan();
             SetPrevBigPassedTime();
         }
@@ -74,11 +56,6 @@ namespace ToiletChecker
         private void button_big_small_Click(object sender, EventArgs e)
         {
             DateTime dtTime = DateTime.Now;
-            //TimeSpan DiffTimeSpan;
-            //TimeSpan DiffBigTimeSpan;
-            //DateTime PrevBigDateTime;
-            //string ssPrevTimeSpan;
-            //string ssPrevBigTimeSpan;
 
             PrevdtTime = GetPrevDateTime();
             if (IsSameRecordTime(dtTime))
@@ -87,14 +64,7 @@ namespace ToiletChecker
             }
             label1.Text = dtTime.ToString() + "に大小をしました。";
             WriteTextToiletTime( dtTime , "大小" );
-            //SetRecordTime(dtTime);
-            //PrevBigDateTime = DateTime.Now;
-            //GetPrevBigDateTime(ref PrevBigDateTime);
-            //DiffTimeSpan = dtTime.Subtract(PrevdtTime);
-            //DiffBigTimeSpan = dtTime.Subtract(PrevBigDateTime);
-            //ssPrevTimeSpan = MakeStringPrevTimeSpan(DiffTimeSpan);
-            //ssPrevBigTimeSpan = MakeStringPrevTimeSpan(DiffBigTimeSpan);
-            SetListViewItem(dtTime, "大小", "-"/*ssPrevTimeSpan*/, "-"/*ssPrevBigTimeSpan*/);
+            SetListViewItem(dtTime, "大小", "-", "-");
             CalcToiletSpan();
             SetPrevBigPassedTime();
         }
@@ -172,15 +142,10 @@ namespace ToiletChecker
             DateTime dtTime;
             DateTime PrevDtTime;
             DateTime BigPrevDtTime;
-            //TimeSpan DiffTmSpan;
-            //TimeSpan DiffBigTmSpan;
             int iReadCnt;
-            //int iBigCnt;
             string str;
             string ToiletDateTime;
             string ToiletKind;
-            //string ssTimeSpan;
-            //string ssBigTimeSpan;
             Encoding sjisEnc = Encoding.GetEncoding("Shift_JIS");
 
             if( File.Exists(@"ToiletChecker.txt") == false )
@@ -197,7 +162,6 @@ namespace ToiletChecker
                 return;
             }
             iReadCnt = 0;
-            //iBigCnt = 0;
             PrevDtTime = DateTime.Now;
             BigPrevDtTime = DateTime.Now;
             while (str.Length != 0)
@@ -228,33 +192,7 @@ namespace ToiletChecker
                     ToiletKind += str1char;
                 }
 
-                //DiffTmSpan = dtTime.Subtract(PrevDtTime);
-                //ssTimeSpan = MakeStringPrevTimeSpan( DiffTmSpan );
-                //PrevDtTime = dtTime;
-                //ssTimeSpan = "-";
-
-                //if (ToiletKind.Contains("大") ) {
-                //    iBigCnt++;
-                //    DiffBigTmSpan = dtTime.Subtract(BigPrevDtTime);
-                //    BigPrevDtTime = dtTime;
-                //    
-                //    if ( iBigCnt != 1)
-                //    {
-                //        ssBigTimeSpan = MakeStringPrevTimeSpan( DiffBigTmSpan );
-                //    }
-                //    else
-                //    {
-                //        ssBigTimeSpan = "-";
-                //    }
-                //}
-                //else
-                //{
-                //    ssBigTimeSpan = "-";
-                //}
-                //ssBigTimeSpan = "-";
-
-                SetListViewItem(dtTime, ToiletKind.ToString(), "-"/*ssTimeSpan*/, "-"/*ssBigTimeSpan*/ );
-
+                SetListViewItem(dtTime, ToiletKind.ToString(), "-", "-" );
 
                 str = reader.ReadLine();
                 if (str == null)
