@@ -140,7 +140,16 @@ namespace ToiletChecker
 
         private void button1_Click(object sender, EventArgs e)
         {
-            ReadToiletCheckData();
+            //ReadToiletCheckData();
+            // 全リストを取得し、選択されているアイテムをリストビューから削除する
+            foreach (ListViewItem item in listView1.Items)
+            {
+                // 選択されているか確認する
+                if (item.Selected)
+                {
+                    listView1.Items.Remove(item);
+                }
+            }
         }
 
         private string MakeStringPrevTimeSpan(TimeSpan DiffTmSpan)
