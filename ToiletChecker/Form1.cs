@@ -234,8 +234,6 @@ namespace ToiletChecker
                 }
 
                 DiffTmSpan = dtTime.Subtract(PrevDtTime);
-                //ssTimeSpan = DiffTmSpan.ToString(@"hh\:mm\:ss");
-                //ssTimeSpan = "";
                 ssTimeSpan = MakeStringPrevTimeSpan( DiffTmSpan );
                 PrevDtTime = dtTime;
 
@@ -246,8 +244,7 @@ namespace ToiletChecker
                     
                     if ( iBigCnt != 1)
                     {
-                        ssBigTimeSpan = "";
-                        ssBigTimeSpan = string.Format("{0}日{1}時間{2}分 ", DiffBigTmSpan.Days, DiffBigTmSpan.Hours, DiffBigTmSpan.Minutes);
+                        ssBigTimeSpan = MakeStringPrevTimeSpan( DiffBigTmSpan );
                     }
                     else
                     {
