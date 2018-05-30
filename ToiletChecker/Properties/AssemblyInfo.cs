@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // アセンブリに関連付けられている情報を変更するには、
 // これらの属性値を変更してください。
 [assembly: AssemblyTitle("トイレチェッカー")]
-[assembly: AssemblyDescription("トイレ時刻を記録してチェックするアプリケーションです。")]
+[assembly: AssemblyDescription("トイレ時刻を記録してチェックするアプリケーションです。\r\n\r\n[ 大 ], [ 小 ], [ 大小 ]のボタンをクリックしますとトイレ時刻を記録します。\r\n\r\n[データ追加]をクリックしますと手動でトイレ時刻を追加できます。\r\n\r\nトイレ時刻一覧の修正したい項目をダブルクリックしますと記録したデータを修正できます。\r\n\r\nトイレ時刻一覧のトイレ時刻を削除したい場合は、該当する行を選択して[DEL]キーを押します。\r\n\r\nトイレチェックデータは実行ファイル[ToiletChecker.exe]と同じフォルダにあります。\r\nファイル名は[ToiletChecker.txt]です。\r\nCSV形式のファイルです。\r\n2016/04/01 06:30:00,小[改行]\r\n~~~~~~~~~~~~~~~~~~~~~~\r\nのフォーマットになっております。\r\n\r\nアプリの改良についてはお問い合わせください。\r\nmasaharu-takahashi01@softkobo-t.jp")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("ソフト工房たかはし")]
 [assembly: AssemblyProduct("トイレチェッカー")]
