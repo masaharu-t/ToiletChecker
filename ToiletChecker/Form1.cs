@@ -542,6 +542,11 @@ namespace ToiletChecker
             TimeSpan DiffTmSpan;
             string ssTimeSpan;
 
+            if(listView1.Items.Count == 0)
+            {
+                return;
+            }
+
             if (listView1.Items.Count < 2)
             {
                 listView1.Items[0].SubItems[3].Text = "-";
@@ -572,6 +577,11 @@ namespace ToiletChecker
             string ssTimeSpan;
             string ssToiletKind;
             int iBigCnt;
+
+            if( listView1.Items.Count == 0 )
+            {
+                return;
+            }
 
             if (listView1.Items.Count < 2)
             {
