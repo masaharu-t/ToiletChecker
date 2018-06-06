@@ -658,6 +658,14 @@ namespace ToiletChecker
                 int iSelectedIndex;
                 int iSelectedItemCount;
                 int iAfterDeletedItemIndex;
+                DialogResult Result;
+
+                Result = MessageBox.Show("トイレ時刻データを削除しますか？", "データ削除確認",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.None, MessageBoxDefaultButton.Button1);
+                if( Result == DialogResult.No )
+                {
+                    return;
+                }
 
                 iSelectedItemCount = listView1.SelectedItems.Count;
                 if (iSelectedItemCount > 0)
