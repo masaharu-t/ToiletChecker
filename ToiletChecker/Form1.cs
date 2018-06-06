@@ -652,7 +652,7 @@ namespace ToiletChecker
 
         private void listView1_KeyDown(object sender, KeyEventArgs e)
         {
-            if ((e.KeyData & Keys.Delete) == Keys.Delete)
+            if ( e.KeyCode == Keys.Delete ) // データの削除はDeleteキーのみ受け付ける。
             {
                 int iCnt;
                 int iSelectedIndex;
