@@ -6,6 +6,8 @@ ToiletChecker Version 1.00
 --------------------------------------------------------------------------------
 対応ＯＳ　　　　　　：Windows7, 8, 8.1, 10
 ランタイムライブラリ：.NET Framework 4.6以降
+　　　　　　　　　　：( このソフトと一緒にランタイムライブラリのインストーラーを
+　　　　　　　　　　：　添付してあります。オフラインセットアップ,Webセットアップ )
 開発環境　　　　　　：Visual Studio Community 2015
 ウェブサイト　　　　：URL　：http://www.softkobo-t.jp/
 問い合わせ先　　　　：EMail：masaharu-takahashi01@softkobo-t.jp
