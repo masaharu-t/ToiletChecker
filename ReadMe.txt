@@ -8,6 +8,11 @@ ToiletChecker Version 1.00
 ランタイムライブラリ：.NET Framework 4.6以降
 　　　　　　　　　　：( このソフトと一緒にランタイムライブラリのインストーラーを
 　　　　　　　　　　：　添付してあります。オフラインセットアップ,Webセットアップ )
+インストール方法　　：ZIPファイルを解凍しまして、そのフォルダのToiletChecker.exeを
+　　　　　　　　　　：実行してください。
+アンインストール方法：ToiletChecker.exeのあるフォルダを削除してください。
+　　　　　　　　　　：トイレチェックデータを保存するばあいは、ToiletChecker.txtを
+　　　　　　　　　　：別の所に移動してください。
 開発環境　　　　　　：Visual Studio Community 2015
 ウェブサイト　　　　：URL　：http://www.softkobo-t.jp/
 問い合わせ先　　　　：EMail：masaharu-takahashi01@softkobo-t.jp
