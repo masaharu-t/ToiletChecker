@@ -235,6 +235,7 @@
             this.groupBox2.TabIndex = 18;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "トイレ場所";
+            this.groupBox2.Visible = false;
             // 
             // radioButton6
             // 
@@ -247,6 +248,7 @@
             this.radioButton6.TabStop = true;
             this.radioButton6.Text = "その他";
             this.radioButton6.UseVisualStyleBackColor = true;
+            this.radioButton6.Visible = false;
             // 
             // radioButton5
             // 
@@ -259,6 +261,7 @@
             this.radioButton5.TabStop = true;
             this.radioButton5.Text = "会社";
             this.radioButton5.UseVisualStyleBackColor = true;
+            this.radioButton5.Visible = false;
             // 
             // radioButton4
             // 
@@ -271,6 +274,7 @@
             this.radioButton4.TabStop = true;
             this.radioButton4.Text = "自宅";
             this.radioButton4.UseVisualStyleBackColor = true;
+            this.radioButton4.Visible = false;
             // 
             // Form2
             // 
