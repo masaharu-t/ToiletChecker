@@ -101,7 +101,7 @@ namespace ToiletChecker
             int iCnt;
 
             // 年の項目設定
-            for( iCnt = 2010; iCnt <= 2020; iCnt++)
+            for( iCnt = 2010; iCnt <= 2050; iCnt++)
             {
                 comboBoxYear.Items.Add(iCnt.ToString());
             }
